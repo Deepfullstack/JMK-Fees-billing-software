@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J.M.K. College - Fee Billing System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <img src="logo.png" alt="J.M.K. College Logo" class="college-logo">
+                <div class="college-info">
+                    <h1>J.M.K. Group of College</h1>
+                    <p>M.S. Road, Sabalgarh, Morena (M.P.) - GSTIN: 22AAAAA0000A125</p>
+                    <p><i class="fas fa-phone"></i> +91 9754441122, 9754441133 | <i class="fas fa-envelope"></i> jmkgroupcollage@gmail.com</p>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-main">
+            <div class="form-container">
+                <div class="form-card">
+                    <h2><i class="fas fa-calculator"></i> Fee Billing System</h2>
+                    
+                    <form id="feeForm">
+                        <div class="form-grid">
+                            <!-- Student Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+                                <div class="form-group">
+                                    <label for="studentName">Candidate's Full Name:</label>
+                                    <input type="text" id="studentName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fatherName">Father's Name:</label>
+                                    <input type="text" id="fatherName" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mobile">Mobile Number:</label>
+                                    <input type="tel" id="mobile" required>
+                                </div>
+                            </div>
+
+                            <!-- Course Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-book"></i> Course Information</h3>
+                                <div class="form-group">
+                                    <label for="receiptNo">Receipt Number:</label>
+                                    <input type="text" id="receiptNo" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="course">Course Name:</label>
+                                    <input type="text" id="course" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="admissionYear">Admission Year:</label>
+                                    <input type="number" id="admissionYear" min="2000" max="2099" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="feeFor">Paid Fees For:</label>
+                                    <select id="feeFor" required>
+                                        <option value="">--Select--</option>
+                                        <option value="Year">Year</option>
+                                        <option value="Semester">Semester</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Fee Components -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-money-bill-wave"></i> Fee Components</h3>
+                                <div class="form-group">
+                                    <label for="tuitionFee">Tuition Fee:</label>
+                                    <input type="number" id="tuitionFee" min="0" value="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="libraryFee">Library Fee:</label>
+                                    <input type="number" id="libraryFee" min="0" value="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="hostelFee">Hostel Fee:</label>
+                                    <input type="number" id="hostelFee" min="0" value="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="examFee">Exam Fee:</label>
+                                    <input type="number" id="examFee" min="0" value="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="miscFee">Miscellaneous Fee:</label>
+                                    <input type="number" id="miscFee" min="0" value="0">
+                                </div>
+                            </div>
+
+                            <!-- Payment Information -->
+                            <div class="form-section">
+                                <h3><i class="fas fa-credit-card"></i> Payment Information</h3>
+                                <div class="form-group">
+                                    <label for="paymentMethod">Payment Method:</label>
+                                    <select id="paymentMethod" required>
+                                        <option value="">--Select--</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="UPI">UPI</option>
+                                        <option value="Net Banking">Net Banking</option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="DD">DD</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="receiptDate">Receipt Date:</label>
+                                    <input type="date" id="receiptDate" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dueDate">Due Date:</label>
+                                    <input type="date" id="dueDate">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="discount">Discount (%):</label>
+                                    <input type="number" id="discount" min="0" max="100" value="0">
+                                </div>
+
+                                <div class="form-group checkbox-group">
+                                    <label>
+                                        <input type="checkbox" id="applyGst"> Apply GST
+                                    </label>
+                                </div>
+
+                                <div class="form-group gst-field" style="display: none;">
+                                    <label for="gstPercent">GST Percentage:</label>
+                                    <input type="number" id="gstPercent" min="0" max="100" value="18">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Terms and Conditions -->
+                        <div class="form-section terms-section">
+                            <h3><i class="fas fa-file-contract"></i> Terms & Conditions</h3>
+                            <div class="terms-content">
+                                <ol>
+                                    <li>Fees once paid are non-refundable.</li>
+                                    <li>Late payments may incur a penalty of ₹50 per day.</li>
+                                    <li>All disputes are subject to Morena jurisdiction.</li>
+                                    <li>Original receipt must be produced for any fee-related queries.</li>
+                                    <li>College rules and regulations must be followed by all students.</li>
+                                </ol>
+                                <div class="checkbox-group">
+                                    <label>
+                                        <input type="checkbox" id="agreeTerms" required> I agree to the terms and conditions
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" id="calculateBtn" class="btn btn-primary">
+                                <i class="fas fa-calculator"></i> Calculate Total
+                            </button>
+                            <button type="button" id="generateReceiptBtn" class="btn btn-success">
+                                <i class="fas fa-receipt"></i> Generate Receipt
+                            </button>
+                            <button type="button" id="saveDataBtn" class="btn btn-info">
+                                <i class="fas fa-file-excel"></i> Save to Excel
+                            </button>
+                            <button type="button" id="sendWhatsAppBtn" class="btn btn-whatsapp">
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                            </button>
+                            <button type="button" id="savePdfBtn" class="btn btn-pdf">
+                                <i class="fas fa-file-pdf"></i> Save as PDF
+                            </button>
+                            <button type="reset" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i> Reset Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Calculation Results -->
+                <div class="results-card">
+                    <h3><i class="fas fa-file-invoice-dollar"></i> Calculation Results</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <span>Subtotal:</span>
+                            <span id="subtotal">₹0.00</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Discount:</span>
+                            <span id="discountAmount">₹0.00</span>
+                        </div>
+                        <div class="result-item gst-row" style="display: none;">
+                            <span>GST (<span id="gstPercentage">0</span>%):</span>
+                            <span id="gstAmount">₹0.00</span>
+                        </div>
+                        <div class="result-item total">
+                            <span>Grand Total:</span>
+                            <span id="grandTotal">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Receipt Container (hidden) -->
+        <div id="receiptContainer" style="display: none; position: relative;">
+            <div id="watermark">
+                <img src="logo.png" alt="College Logo" class="watermark-logo">
+            </div>
+            <div id="printableReceipt"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
